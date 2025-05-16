@@ -1,0 +1,23 @@
+name: force_update_example
+description: Example project for force update package
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^2.24.2
+  url_launcher: ^6.2.5
+  force_update_package:
+    path: ../  # This points to your local package
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true 
