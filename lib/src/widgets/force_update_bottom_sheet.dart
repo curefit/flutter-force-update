@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/force_update_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ForceUpdateBottomSheet extends StatelessWidget {
   final ForceUpdateConfig config;
@@ -41,24 +43,43 @@ class ForceUpdateBottomSheet extends StatelessWidget {
               config.title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: config.textColor,
                   ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               config.message,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: config.textColor,
+                  ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (config.onUpdatePressed != null) {
                   config.onUpdatePressed!();
+                } else {
+                  if (Platform.isIOS) {
+                    final uri = Uri.parse(config.iosStoreUrl!);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri,
+                          mode: LaunchMode.externalApplication);
+                    }
+                  } else {
+                    final uri = Uri.parse(config.androidStoreUrl!);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri,
+                          mode: LaunchMode.externalApplication);
+                    }
+                  }
                 }
-                Navigator.of(context).pop();
               },
-              child: Text(config.updateButtonText),
+              child: Text(config.updateButtonText,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: config.buttonColor,
+                      )),
             ),
             if (!config.forcedUpdate && config.laterButtonText != null) ...[
               const SizedBox(height: 12),
@@ -69,7 +90,10 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                child: Text(config.laterButtonText!),
+                child: Text(config.laterButtonText!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: config.laterButtonColor,
+                        )),
               ),
             ],
             const SizedBox(height: 16),

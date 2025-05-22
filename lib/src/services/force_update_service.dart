@@ -7,6 +7,7 @@ class ForceUpdateService {
   final String androidVersionKey;
   final String iosVersionKey;
 
+
   ForceUpdateService({
     FirebaseRemoteConfig? remoteConfig,
     this.androidVersionKey = 'minimum_android_version',
@@ -16,18 +17,19 @@ class ForceUpdateService {
   Future<bool> needsUpdate() async {
     try {
       await _remoteConfig.fetchAndActivate();
-
+      print('Fetching and activating remote config');
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
       final String currentVersion = packageInfo.version;
-
+      print('Current version: $currentVersion');
       final String minimumVersion = Platform.isIOS
           ? _remoteConfig.getString(iosVersionKey)
           : _remoteConfig.getString(androidVersionKey);
-
+      print('Minimum version: $minimumVersion');
       if (minimumVersion.isEmpty) return false;
-
+      print('Comparing versions: $currentVersion and $minimumVersion');
       return _compareVersions(currentVersion, minimumVersion);
     } catch (e) {
+      print('Error in needsUpdate: $e');
       // In case of any errors, don't force update
       return false;
     }
@@ -36,16 +38,17 @@ class ForceUpdateService {
   bool _compareVersions(String currentVersion, String minimumVersion) {
     List<int> current = currentVersion.split('.').map(int.parse).toList();
     List<int> minimum = minimumVersion.split('.').map(int.parse).toList();
-
+    print('Comparing versions: $current and $minimum');
     // Pad with zeros if versions have different lengths
     while (current.length < minimum.length) current.add(0);
     while (minimum.length < current.length) minimum.add(0);
-
+    print('Padded versions: $current and $minimum');
     for (int i = 0; i < current.length; i++) {
+      print('Comparing index $i: ${current[i]} and ${minimum[i]}');
       if (current[i] < minimum[i]) return true;
       if (current[i] > minimum[i]) return false;
     }
-
+    print('Versions are equal');
     return false;
   }
 

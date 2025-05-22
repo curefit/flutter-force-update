@@ -1,9 +1,18 @@
+import 'package:flutter/material.dart';
+
 class ForceUpdateConfig {
   final String title;
   final String message;
   final String updateButtonText;
   final String? laterButtonText;
   final bool forcedUpdate;
+  final String? androidStoreUrl;
+  final String? iosStoreUrl;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? buttonColor;
+  final Color? laterButtonColor;
+  final Color? updateButtonColor;
   final Function()? onUpdatePressed;
   final Function()? onLaterPressed;
 
@@ -16,6 +25,13 @@ class ForceUpdateConfig {
     this.forcedUpdate = true,
     this.onUpdatePressed,
     this.onLaterPressed,
+    this.androidStoreUrl,
+    this.iosStoreUrl,
+    this.backgroundColor,
+    this.textColor,
+    this.buttonColor,
+    this.laterButtonColor,
+    this.updateButtonColor,
   });
 
   ForceUpdateConfig copyWith({
@@ -26,6 +42,13 @@ class ForceUpdateConfig {
     bool? forcedUpdate,
     Function()? onUpdatePressed,
     Function()? onLaterPressed,
+    String? androidStoreUrl,
+    String? iosStoreUrl,
+    Color? backgroundColor,
+    Color? textColor,
+    Color? buttonColor,
+    Color? laterButtonColor,
+    Color? updateButtonColor,
   }) {
     return ForceUpdateConfig(
       title: title ?? this.title,
@@ -35,6 +58,13 @@ class ForceUpdateConfig {
       forcedUpdate: forcedUpdate ?? this.forcedUpdate,
       onUpdatePressed: onUpdatePressed ?? this.onUpdatePressed,
       onLaterPressed: onLaterPressed ?? this.onLaterPressed,
+      androidStoreUrl: androidStoreUrl ?? this.androidStoreUrl,
+      iosStoreUrl: iosStoreUrl ?? this.iosStoreUrl,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      textColor: textColor ?? this.textColor,
+      buttonColor: buttonColor ?? this.buttonColor,
+      laterButtonColor: laterButtonColor ?? this.laterButtonColor,
+      updateButtonColor: updateButtonColor ?? this.updateButtonColor,
     );
   }
 }
