@@ -57,6 +57,9 @@ class ForceUpdateBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: config.updateButtonColor,
+              ),
               onPressed: () async {
                 if (config.onUpdatePressed != null) {
                   config.onUpdatePressed!();
@@ -77,8 +80,9 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                 }
               },
               child: Text(config.updateButtonText,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: config.buttonColor,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: config.textColor,
+                        fontWeight: FontWeight.bold,
                       )),
             ),
             if (!config.forcedUpdate && config.laterButtonText != null) ...[
@@ -93,6 +97,7 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                 child: Text(config.laterButtonText!,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: config.laterButtonColor,
+                           fontWeight: FontWeight.bold,
                         )),
               ),
             ],
