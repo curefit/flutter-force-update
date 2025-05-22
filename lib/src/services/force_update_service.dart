@@ -7,7 +7,6 @@ class ForceUpdateService {
   final String androidVersionKey;
   final String iosVersionKey;
 
-
   ForceUpdateService({
     FirebaseRemoteConfig? remoteConfig,
     this.androidVersionKey = 'minimum_android_version',
@@ -16,6 +15,11 @@ class ForceUpdateService {
 
   Future<bool> needsUpdate() async {
     try {
+      await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval:
+            const Duration(seconds: 0), // Fetch latest values every time
+      ));
       await _remoteConfig.fetchAndActivate();
       print('Fetching and activating remote config');
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
