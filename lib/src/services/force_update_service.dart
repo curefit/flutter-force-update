@@ -20,7 +20,8 @@ class ForceUpdateService {
         minimumFetchInterval:
             const Duration(seconds: 0), // Fetch latest values every time
       ));
-      await _remoteConfig.fetchAndActivate();
+      await _remoteConfig.fetch();
+      await _remoteConfig.activate();
       print('Fetching and activating remote config');
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
       final String currentVersion = packageInfo.version;
