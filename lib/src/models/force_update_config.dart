@@ -10,6 +10,7 @@ class ForceUpdateConfig {
   final String? iosStoreUrl;
   final Color? backgroundColor;
   final Color? textColor;
+  final Color? buttonTextColor;
   final Color? laterButtonColor;
   final Color? updateButtonColor;
   final Function()? onUpdatePressed;
@@ -26,6 +27,7 @@ class ForceUpdateConfig {
     this.onLaterPressed,
     this.androidStoreUrl,
     this.iosStoreUrl,
+    this.buttonTextColor,
     this.backgroundColor,
     this.textColor,
     this.laterButtonColor,
@@ -44,6 +46,7 @@ class ForceUpdateConfig {
     String? iosStoreUrl,
     Color? backgroundColor,
     Color? textColor,
+    Color? buttonTextColor,
     Color? laterButtonColor,
     Color? updateButtonColor,
   }) {
@@ -59,6 +62,7 @@ class ForceUpdateConfig {
       iosStoreUrl: iosStoreUrl ?? this.iosStoreUrl,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textColor: textColor ?? this.textColor,
+      buttonTextColor: buttonTextColor ?? this.buttonTextColor,
       laterButtonColor: laterButtonColor ?? this.laterButtonColor,
       updateButtonColor: updateButtonColor ?? this.updateButtonColor,
     );

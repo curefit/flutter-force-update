@@ -81,7 +81,7 @@ class ForceUpdateBottomSheet extends StatelessWidget {
               },
               child: Text(config.updateButtonText,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: config.textColor,
+                        color: config.buttonTextColor,
                         fontWeight: FontWeight.bold,
                       )),
             ),
@@ -97,7 +97,7 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                 child: Text(config.laterButtonText!,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: config.laterButtonColor,
-                           fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                         )),
               ),
             ],
