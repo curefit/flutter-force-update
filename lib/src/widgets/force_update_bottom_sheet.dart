@@ -18,7 +18,8 @@ class ForceUpdateBottomSheet extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: config.backgroundColor ??
+              Theme.of(context).scaffoldBackgroundColor,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(16),
           ),
