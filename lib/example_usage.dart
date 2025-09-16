@@ -25,9 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // 2. Custom Configuration - More control over the update dialog
     final customConfig = ForceUpdateConfig(
       // Customize the title
-      title: 'New Version Available! 🎉',
-      // Custom message
-      message: 'We\'ve added amazing new features. Update now to try them!',
+      headerWidget: const Text('New Version Available! 🎉'),
       // Custom button text
       updateButtonText: 'Get Latest Version',
       // Optional: Add a "Later" button (remove for forced update)

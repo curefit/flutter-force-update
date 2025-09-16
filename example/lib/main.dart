@@ -43,8 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _checkForUpdates() async {
     final config = ForceUpdateConfig(
-      title: 'Update Available 🚀',
-      message: 'A new version is available with exciting features!',
+      headerWidget: const Text('Update Available 🚀'),
       updateButtonText: 'Update Now',
       laterButtonText: 'Remind Me Later', // Remove this for forced update
       forcedUpdate: false, // Set to true for forced update
