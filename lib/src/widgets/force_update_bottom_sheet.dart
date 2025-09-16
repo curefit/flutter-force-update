@@ -75,7 +75,7 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                           ),),
                 ),
               ),
-              if (!config.forcedUpdate && config.laterButtonText != null) ...[
+              if (config.laterButtonText != null) ...[
                 const SizedBox(height: 5),
                 TextButton(
                   onPressed: () {
