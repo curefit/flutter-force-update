@@ -16,7 +16,6 @@ class ForceUpdateBottomSheet extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => !config.forcedUpdate,
       child: Container(
-        padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: config.backgroundColor ??
               Theme.of(context).scaffoldBackgroundColor,
@@ -24,86 +23,77 @@ class ForceUpdateBottomSheet extends StatelessWidget {
             top: Radius.circular(16),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 8),
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 8),
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              config.title,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: config.textColor,
+              const SizedBox(height: 24),
+              config.headerWidget,
+              const SizedBox(height: 16),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width *0.3),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: config.updateButtonColor,
                   ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              config.message,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: config.textColor,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: config.updateButtonColor,
-              ),
-              onPressed: () async {
-                if (config.onUpdatePressed != null) {
-                  config.onUpdatePressed!();
-                } else {
-                  if (Platform.isIOS) {
-                    final uri = Uri.parse(config.iosStoreUrl!);
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri,
-                          mode: LaunchMode.externalApplication);
+                  onPressed: () async {
+                    if (config.onUpdatePressed != null) {
+                      config.onUpdatePressed!();
+                    } else {
+                      if (Platform.isIOS) {
+                        final uri = Uri.parse(config.iosStoreUrl!);
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(uri,
+                              mode: LaunchMode.externalApplication);
+                        }
+                      } else {
+                        final uri = Uri.parse(config.androidStoreUrl!);
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(uri,
+                              mode: LaunchMode.externalApplication);
+                        }
+                      }
                     }
-                  } else {
-                    final uri = Uri.parse(config.androidStoreUrl!);
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri,
-                          mode: LaunchMode.externalApplication);
-                    }
-                  }
-                }
-              },
-              child: Text(config.updateButtonText,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: config.buttonTextColor,
-                        fontWeight: FontWeight.bold,
-                      )),
-            ),
-            if (!config.forcedUpdate && config.laterButtonText != null) ...[
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () {
-                  if (config.onLaterPressed != null) {
-                    config.onLaterPressed!();
-                  }
-                  Navigator.of(context).pop();
-                },
-                child: Text(config.laterButtonText!,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: config.laterButtonColor,
-                          fontWeight: FontWeight.bold,
-                        )),
+                  },
+                  child: Text(config.updateButtonText,
+                      style: config.buttonTextStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: config.buttonTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                ),
               ),
+              if (!config.forcedUpdate && config.laterButtonText != null) ...[
+                const SizedBox(height: 5),
+                TextButton(
+                  onPressed: () {
+                    if (config.onLaterPressed != null) {
+                      config.onLaterPressed!();
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(config.laterButtonText!,
+                      style: config.buttonTextStyle ??Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: config.laterButtonColor,
+                            fontWeight: FontWeight.bold,
+                          )),
+                ),
+              ],
+              const SizedBox(height: 24),
             ],
-            const SizedBox(height: 16),
-          ],
+          ),
         ),
       ),
     );
