@@ -82,7 +82,6 @@ class ForceUpdateBottomSheet extends StatelessWidget {
                     if (config.onLaterPressed != null) {
                       config.onLaterPressed!();
                     }
-                    Navigator.of(context).pop();
                   },
                   child: Text(config.laterButtonText!,
                       style: config.buttonTextStyle ??Theme.of(context).textTheme.bodyMedium?.copyWith(
