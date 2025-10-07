@@ -15,11 +15,11 @@ class ForceUpdate {
     ForceUpdateConfig? config,
     ForceUpdateService? updateService,
   }) async {
-    final service = updateService ?? ForceUpdateService();
-    await service.setDefaultConfigValues();
+    // final service = updateService ?? ForceUpdateService();
+    // await service.setDefaultConfigValues();
 
-    final needsUpdate = await service.needsUpdate();
-    if (needsUpdate && context.mounted) {
+    // final needsUpdate = await service.needsUpdate();
+    // if (needsUpdate && context.mounted) {
       final updateConfig = config ?? const ForceUpdateConfig();
 
       await showModalBottomSheet(
@@ -28,6 +28,6 @@ class ForceUpdate {
         enableDrag: !updateConfig.forcedUpdate,
         builder: (context) => ForceUpdateBottomSheet(config: updateConfig),
       );
-    }
+    // }
   }
 }
