@@ -14,7 +14,7 @@ dependencies:
   firebase_core: ^2.24.2
   package_info_plus:
     git:
-      ref: fd0bc29deac70a2a2f49882a87d861fccbdac32c
+      ref: 45f78959b678944571a0ab0c73c732fad8082781
       url: git@github.com:curefit/plus_plugins.git
       path: packages/package_info_plus/package_info_plus
   url_launcher: ^6.1.3
